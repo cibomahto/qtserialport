@@ -321,9 +321,6 @@ bool QSerialPortPrivate::open(QIODevice::OpenMode mode)
 
 void QSerialPortPrivate::close()
 {
-    if (settingsRestoredOnClose)
-        ::tcsetattr(descriptor, TCSANOW, &restoredTermios);
-
 #ifdef TIOCNXCL
     ::ioctl(descriptor, TIOCNXCL);
 #endif
@@ -834,8 +831,6 @@ inline bool QSerialPortPrivate::initialize(QIODevice::OpenMode mode)
     termios tio;
     if (!getTermios(&tio))
         return false;
-
-    restoredTermios = tio;
 
     qt_set_common_props(&tio, mode);
     qt_set_databits(&tio, dataBits);

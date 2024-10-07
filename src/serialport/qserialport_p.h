@@ -187,9 +187,7 @@ public:
 
     void emitReadyRead();
 
-    DCB restoredDcb;
     COMMTIMEOUTS currentCommTimeouts;
-    COMMTIMEOUTS restoredCommTimeouts;
     HANDLE handle = INVALID_HANDLE_VALUE;
     QByteArray readChunkBuffer;
     QByteArray writeChunkBuffer;
@@ -233,7 +231,6 @@ public:
     bool startAsyncWrite();
     bool completeAsyncWrite();
 
-    struct termios restoredTermios;
     int descriptor = -1;
 
     QSocketNotifier *readNotifier = nullptr;
